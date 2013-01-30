@@ -1,0 +1,8 @@
+#true && echo a
+#false && echo b
+#true || echo c
+#false || echo d
+
+echo e
+
+echo e | tr a-z A-Z; echo e | tr A-Z a-z

@@ -234,9 +234,8 @@ simple_command_t parseSimpleCommand (char* simpleCommandString) {
 	/* found a word for the command string */
 	found_word = true;
 	
-	
-	char** wordList = (char**) checked_malloc(5*sizeof(char*)+1);
 	int wordLimit = 5;
+	char** wordList = (char**) checked_malloc(wordLimit*sizeof(char*)+1);
 	int nWords = 0;
 	int running_start = start;
 	bool inWord = false;
@@ -251,7 +250,8 @@ simple_command_t parseSimpleCommand (char* simpleCommandString) {
 		} else if(isspace(*lp) && inWord) {
 			inWord = false;
 			if(nWords == wordLimit) {
-				wordList = (char**) checked_realloc((void*) wordList, 2*wordLimit+1);
+				wordLimit = 2*wordLimit;
+				wordList = (char**) checked_realloc((void*) wordList, wordLimit+1);
 			}
 			wordList[nWords] = subString(simpleCommandString, running_start, running_alpha);
 			nWords++;
